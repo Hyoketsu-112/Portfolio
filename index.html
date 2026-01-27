@@ -410,6 +410,17 @@
                     
                     <div class="contact-item">
                         <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>WhatsApp</h3>
+                            <p>+234 802 772 1006</p>
+                            <small style="color: var(--gray); font-size: 0.9rem; display: block; margin-top: 5px;">Click to chat directly</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-details">
@@ -432,9 +443,18 @@
                             <i class="fab fa-dribbble"></i>
                         </a>
                     </div>
+                    
+                    <!-- Direct WhatsApp Button -->
+                    <a href="https://wa.me/2348027721006?text=Hello%20Oshinaya!%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." 
+                       class="btn whatsapp-btn" 
+                       target="_blank" 
+                       rel="noopener">
+                        <i class="fab fa-whatsapp"></i> Chat Directly on WhatsApp
+                    </a>
                 </div>
                 
                 <div class="contact-form">
+                    <h3 style="margin-bottom: 30px; color: var(--light);">Send Message via WhatsApp</h3>
                     <form id="contactForm">
                         <div class="form-group">
                             <label for="name" class="form-label">Your Name</label>
@@ -456,8 +476,14 @@
                             <textarea id="message" class="form-control" placeholder="Tell me about your project..." rows="5" required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> Send Message
+                        <div class="form-note">
+                            <small style="color: var(--gray); display: block; margin-bottom: 15px;">
+                                <i class="fas fa-info-circle"></i> This will open WhatsApp with your message pre-filled
+                            </small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary whatsapp-submit-btn">
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
                         </button>
                     </form>
                 </div>
@@ -495,6 +521,16 @@
                         <li><a href="#projects">Game Development</a></li>
                     </ul>
                 </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Me</h3>
+                    <ul>
+                        <li><a href="mailto:oshinayadamilola3@gmail.com">Email</a></li>
+                        <li><a href="tel:+2348027721006">Phone</a></li>
+                        <li><a href="https://wa.me/2348027721006" target="_blank">WhatsApp</a></li>
+                        <li><a href="#contact">Contact Form</a></li>
+                    </ul>
+                </div>
             </div>
             
             <div class="copyright">
@@ -509,6 +545,14 @@
             <i class="fas fa-moon"></i>
         </button>
     </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/2348027721006?text=Hello%20Oshinaya!%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Back to Top -->
     <a href="#" class="back-to-top" id="backToTop">

@@ -31,8 +31,8 @@ function initPortfolio() {
     // Initialize theme toggle
     initThemeToggle();
     
-    // Initialize form
-    initContactForm();
+    // Initialize WhatsApp form
+    initWhatsAppForm();
     
     // Initialize grid lines
     initGridLines();
@@ -106,7 +106,7 @@ function initCustomCursor() {
         });
         
         // Add hover effects to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .project-card, .contact-item, .social-link, .tech-tag');
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .contact-item, .social-link, .tech-tag, .whatsapp-float');
         
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -329,50 +329,156 @@ function initThemeToggle() {
     }
 }
 
-// Contact Form
-function initContactForm() {
+// WhatsApp Form Handler
+function initWhatsAppForm() {
     const form = document.getElementById('contactForm');
     const notification = document.getElementById('notification');
     
     if (!form || !notification) return;
     
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        // Get form data
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Validate form
+        const errors = validateForm(name, email, subject, message);
+        if (errors.length > 0) {
+            showNotification(errors[0], 'error');
+            return;
+        }
         
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
         // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing WhatsApp...';
         submitBtn.disabled = true;
         
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+        // Save form data to localStorage in case WhatsApp doesn't open
+        saveFormData(name, email, subject, message);
+        
+        // Format WhatsApp message
+        const whatsappMessage = formatWhatsAppMessage(name, email, subject, message);
+        const whatsappUrl = `https://wa.me/2348027721006?text=${whatsappMessage}`;
+        
+        // Show notification
+        showNotification('Opening WhatsApp...', 'success');
+        
+        // Open WhatsApp in new tab after a brief delay
+        setTimeout(() => {
+            const newWindow = window.open(whatsappUrl, '_blank');
             
-            // Show success notification
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+            // Fallback if popup is blocked
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                showNotification('Popup blocked! Please copy this link: ' + whatsappUrl, 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
             
-            // Reset form
+            // Reset form after successful opening
             form.reset();
             
-        } catch (error) {
-            showNotification('Failed to send message. Please try again.', 'error');
-        } finally {
             // Reset button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        }
+            
+            // Show success message
+            setTimeout(() => {
+                showNotification('WhatsApp opened! Please send the pre-filled message.', 'success');
+            }, 1000);
+            
+        }, 800);
     });
     
-    function showNotification(message, type) {
-        notification.textContent = message;
-        notification.className = `notification ${type} show`;
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 5000);
+    // Auto-fill form from localStorage if available
+    autoFillForm();
+}
+
+// Form Validation
+function validateForm(name, email, subject, message) {
+    const errors = [];
+    
+    if (!name.trim()) errors.push('Name is required');
+    if (!email.trim()) errors.push('Email is required');
+    if (!subject.trim()) errors.push('Subject is required');
+    if (!message.trim()) errors.push('Message is required');
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+        errors.push('Please enter a valid email address');
     }
+    
+    // Message length validation
+    if (message.length < 10) {
+        errors.push('Message should be at least 10 characters long');
+    }
+    
+    return errors;
+}
+
+// Format WhatsApp Message
+function formatWhatsAppMessage(name, email, subject, message) {
+    const formattedMessage = `*New Contact Form Submission*%0A%0A` +
+                           `👤 *Name:* ${encodeURIComponent(name)}%0A` +
+                           `📧 *Email:* ${encodeURIComponent(email)}%0A` +
+                           `📝 *Subject:* ${encodeURIComponent(subject)}%0A` +
+                           `%0A📋 *Message:*%0A${encodeURIComponent(message)}%0A%0A` +
+                           `_Sent from Portfolio Website_`;
+    
+    return formattedMessage;
+}
+
+// Save Form Data to Local Storage
+function saveFormData(name, email, subject, message) {
+    const formData = {
+        name,
+        email,
+        subject,
+        message,
+        timestamp: new Date().toISOString()
+    };
+    
+    try {
+        localStorage.setItem('lastContactForm', JSON.stringify(formData));
+    } catch (e) {
+        console.warn('Could not save form data to localStorage:', e);
+    }
+}
+
+// Auto-fill Form from Local Storage
+function autoFillForm() {
+    try {
+        const savedData = localStorage.getItem('lastContactForm');
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            document.getElementById('name').value = formData.name || '';
+            document.getElementById('email').value = formData.email || '';
+            document.getElementById('subject').value = formData.subject || '';
+            document.getElementById('message').value = formData.message || '';
+        }
+    } catch (e) {
+        console.warn('Could not load saved form data:', e);
+    }
+}
+
+// Show Notification
+function showNotification(message, type) {
+    const notification = document.getElementById('notification');
+    if (!notification) return;
+    
+    notification.textContent = message;
+    notification.className = `notification ${type} show`;
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 5000);
 }
 
 // Grid Lines

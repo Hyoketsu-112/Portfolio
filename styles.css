@@ -10,6 +10,8 @@
     --neon-blue: #00f3ff;
     --neon-pink: #ff00ff;
     --neon-green: #00ff9d;
+    --whatsapp-green: #25D366;
+    --whatsapp-dark-green: #128C7E;
     --dark: #0A0A0F;
     --darker: #050508;
     --light: #F5F5F7;
@@ -22,6 +24,7 @@
         rgba(108, 99, 255, 0.1) 0%, 
         rgba(0, 212, 170, 0.1) 50%, 
         rgba(255, 101, 132, 0.1) 100%);
+    --gradient-whatsapp: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     
     /* Shadows & Glows */
     --shadow-soft: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -30,6 +33,7 @@
     --glow-primary: 0 0 30px rgba(108, 99, 255, 0.4);
     --glow-secondary: 0 0 30px rgba(255, 101, 132, 0.4);
     --glow-accent: 0 0 30px rgba(0, 212, 170, 0.4);
+    --glow-whatsapp: 0 0 30px rgba(37, 211, 102, 0.4);
     
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -379,6 +383,34 @@ header.scrolled {
 .btn-secondary:hover {
     border-color: var(--primary);
     color: var(--primary);
+    transform: translateY(-5px);
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+    background: var(--whatsapp-green);
+    color: white;
+    border: none;
+    box-shadow: var(--glow-whatsapp);
+    margin-top: 20px;
+    width: 100%;
+}
+
+.whatsapp-btn:hover {
+    background: var(--whatsapp-dark-green);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-submit-btn {
+    background: var(--whatsapp-green);
+    border: none;
+    width: 100%;
+    box-shadow: var(--glow-whatsapp);
+}
+
+.whatsapp-submit-btn:hover {
+    background: var(--whatsapp-dark-green);
     transform: translateY(-5px);
 }
 
@@ -786,7 +818,7 @@ header.scrolled {
     transform: translateX(10px);
 }
 
-.contact-icon {
+.contact-item .contact-icon {
     width: 60px;
     height: 60px;
     background: rgba(108, 99, 255, 0.1);
@@ -796,6 +828,11 @@ header.scrolled {
     justify-content: center;
     font-size: 1.5rem;
     color: var(--primary);
+}
+
+.contact-item.whatsapp-item .contact-icon {
+    background: rgba(37, 211, 102, 0.1);
+    color: var(--whatsapp-green);
 }
 
 .contact-details h3 {
@@ -875,6 +912,19 @@ header.scrolled {
 textarea.form-control {
     min-height: 150px;
     resize: vertical;
+}
+
+.form-note {
+    background: rgba(37, 211, 102, 0.1);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    border-left: 3px solid var(--whatsapp-green);
+}
+
+.form-note i {
+    color: var(--whatsapp-green);
+    margin-right: 8px;
 }
 
 /* FOOTER */
@@ -1130,6 +1180,47 @@ footer {
     transform: rotate(180deg);
 }
 
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    background: var(--whatsapp-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    transition: all var(--transition);
+    z-index: 1000;
+    animation: float-whatsapp 3s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+    background: var(--whatsapp-dark-green);
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+}
+
+@keyframes float-whatsapp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Adjust other floating buttons for WhatsApp button */
+.theme-toggle {
+    bottom: 105px; /* Move theme toggle up */
+}
+
+.back-to-top {
+    bottom: 165px; /* Move back-to-top up */
+}
+
 /* BACK TO TOP */
 .back-to-top {
     position: fixed;
@@ -1228,6 +1319,33 @@ footer {
 
 .notification.error {
     border-left-color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        left: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+    
+    .theme-toggle {
+        bottom: 90px;
+        right: 20px;
+    }
+    
+    .back-to-top {
+        bottom: 150px;
+        right: 20px;
+    }
+    
+    .notification {
+        top: 80px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
 }
 
 /* LIGHT THEME OVERRIDES */
