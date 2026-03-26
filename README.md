@@ -3,7 +3,7 @@
 
 A personal portfolio website built to showcase projects, skills, and contact information. It's a fully self-contained frontend — no framework, no build tools, just HTML, CSS, and JavaScript.
 
-Live at: [your-portfolio-url.netlify.app](https://oshinayaportfolio.netlify.app/)
+Live at: [My Portfolio](https://oshinayaportfolio.netlify.app/)
 
 ---
 
