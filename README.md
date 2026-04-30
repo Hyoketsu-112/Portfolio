@@ -15,7 +15,7 @@ A modern, minimalist, and professional portfolio website showcasing digital prod
 
 ## 📂 Project Structure
 
-```
+```text
 Portfolio/
 ├── index.html              # Main HTML file with semantic markup
 ├── styles.css              # All CSS (responsive + dark mode)
@@ -198,7 +198,7 @@ See [OPTIMIZATION_GUIDE.md](OPTIMIZATION_GUIDE.md) for detailed optimization ste
 
 ## 📞 Contact Methods
 
-- **Email:** oshinayadamilola3@gmail.com
+- **Email:** [oshinayadamilola3@gmail.com](mailto:oshinayadamilola3@gmail.com)
 - **WhatsApp:** +234 802 772 1006
 - **LinkedIn:** [Profile Link](https://www.linkedin.com/in/oshinaya-damilola-8b7999259)
 - **GitHub:** [Profile Link](https://github.com/Hyoketsu-112)
